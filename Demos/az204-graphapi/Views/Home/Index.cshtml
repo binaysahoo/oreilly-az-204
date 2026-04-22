@@ -1,0 +1,63 @@
+@model az204_graphapi.Models.GraphPageViewModel
+@{
+    ViewData["Title"] = "Microsoft Graph Demo";
+}
+
+<div>
+    <h1>az204-graphapi</h1>
+    <p>Signed in as: <strong>@Model.UserName</strong></p>
+    <p><a href="/MicrosoftIdentity/Account/SignOut">Sign out</a></p>
+
+    @if (!string.IsNullOrWhiteSpace(Model.UserDisplayName))
+    {
+        <p><strong>Graph profile:</strong> @Model.UserDisplayName (@Model.UserPrincipalName)</p>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div style="padding:12px; border:1px solid #c00; background:#fee; margin:16px 0;">
+            <strong>Error:</strong> @Model.ErrorMessage
+        </div>
+    }
+    else
+    {
+        <p>This page uses Microsoft Graph to list the first 10 items from the signed-in user's OneDrive root folder.</p>
+        <p>Items found: <strong>@Model.Items.Count</strong></p>
+
+        @if (Model.Items.Count == 0)
+        {
+            <p>No items were found.</p>
+        }
+        else
+        {
+            <table style="border-collapse: collapse; width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="border:1px solid #ccc; padding:8px; text-align:left;">Name</th>
+                        <th style="border:1px solid #ccc; padding:8px; text-align:left;">Type</th>
+                        <th style="border:1px solid #ccc; padding:8px; text-align:left;">Size</th>
+                        <th style="border:1px solid #ccc; padding:8px; text-align:left;">Last Modified</th>
+                        <th style="border:1px solid #ccc; padding:8px; text-align:left;">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">@item.Name</td>
+                        <td style="border:1px solid #ccc; padding:8px;">@item.ItemType</td>
+                        <td style="border:1px solid #ccc; padding:8px;">@item.Size</td>
+                        <td style="border:1px solid #ccc; padding:8px;">@item.LastModifiedDateTime</td>
+                        <td style="border:1px solid #ccc; padding:8px;">
+                            @if (!string.IsNullOrWhiteSpace(item.WebUrl))
+                            {
+                                <a href="@item.WebUrl" target="_blank">Open</a>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    }
+</div>

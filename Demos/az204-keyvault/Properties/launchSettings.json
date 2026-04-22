@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "az204-keyvault": {
+      "commandName": "Project"
+    }
+  }
+}

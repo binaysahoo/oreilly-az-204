@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1>az204-identity-platform</h1>
+    <p>ASP.NET Core 8 app using Microsoft Identity Platform authentication.</p>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <p><strong>Signed in as:</strong> @User.Identity?.Name</p>
+        <p><a href="/Home/Secure">Go to secure page</a></p>
+        <p><a href="/MicrosoftIdentity/Account/SignOut">Sign out</a></p>
+    }
+    else
+    {
+        <p>You are not signed in.</p>
+        <p><a href="/MicrosoftIdentity/Account/SignIn">Sign in</a></p>
+    }
+</div>

@@ -1,0 +1,20 @@
+@model az204_keyvault_reference.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div>
+    <h1>az204-keyvault-reference with instrumentation</h1>
+    <p>This MVC app reads a configuration app setting and shows its value.</p>
+
+    <table style="border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <td style="border:1px solid #ccc; padding:8px;"><strong>Setting Key</strong></td>
+            <td style="border:1px solid #ccc; padding:8px;">@Model.SettingKey</td>
+        </tr>
+        <tr>
+            <td style="border:1px solid #ccc; padding:8px;"><strong>Setting Value</strong></td>
+            <td style="border:1px solid #ccc; padding:8px;">@Model.SettingValue</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,6 @@
+@az204_webapi_HostAddress = http://localhost:5019
+
+GET {{az204_webapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
