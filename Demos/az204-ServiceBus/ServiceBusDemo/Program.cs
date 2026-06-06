@@ -7,7 +7,7 @@ namespace ServiceBusDemo
 {
     class Program
     {
-        static string connectionString = "SERVICE BUS CONNECTION STRING HERE";
+        static string connectionString = "[YOUR SERVICE BUS CONNECTION STRING]";
         static string queueName = "sbOrders";
 
         /// <summary>
@@ -34,12 +34,13 @@ namespace ServiceBusDemo
                 // create a sender for the queue 
                 ServiceBusSender sender = client.CreateSender(queueName);
 
-                // create a message that we can send
-                ServiceBusMessage message = new ServiceBusMessage("Hello world!");
-
-                // send the message
-                await sender.SendMessageAsync(message);
-                Console.WriteLine($"Sent a single message to the queue: {queueName}");
+                // send 10 individual messages
+                for (int i = 1; i <= 10; i++)
+                {
+                    ServiceBusMessage message = new ServiceBusMessage($"Message {i}");
+                    await sender.SendMessageAsync(message);
+                    Console.WriteLine($"Sent message {i} to the queue: {queueName}");
+                }
             }
         }
 
@@ -47,9 +48,10 @@ namespace ServiceBusDemo
         {
             // create a queue containing the messages and return it to the caller
             Queue<ServiceBusMessage> messages = new Queue<ServiceBusMessage>();
-            messages.Enqueue(new ServiceBusMessage("First message in the batch"));
-            messages.Enqueue(new ServiceBusMessage("Second message in the batch"));
-            messages.Enqueue(new ServiceBusMessage("Third message in the batch"));
+            for (int i = 1; i <= 10; i++)
+            {
+                messages.Enqueue(new ServiceBusMessage($"Batch message {i}"));
+            }
             return messages;
         }
 
